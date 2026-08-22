@@ -1,6 +1,17 @@
 import os
-import sys
 from pathlib import Path
+from sys import (
+    argv as sys_argv,
+)
+from sys import (
+    exit as sys_exit,
+)
+from sys import (
+    stderr as sys_stderr,
+)
+from sys import (
+    stdout as sys_stdout,
+)
 
 from dotenv import load_dotenv
 from groq import Groq, GroqError
@@ -32,17 +43,23 @@ def search(query: str) -> str | None:
     return completion.choices[0].message.content
 
 def main():
+    # Force UTF-8 encoding for stdout/stderr on Windows (avoids UnicodeEncodeError)
+    if hasattr(sys_stdout, "reconfigure"):
+        sys_stdout.reconfigure(encoding="utf-8") # type: ignore
+    if hasattr(sys_stderr, "reconfigure"):
+        sys_stderr.reconfigure(encoding="utf-8") # type: ignore
+
     # Check if a prompt/query was passed via the terminal
-    if len(sys.argv) < 2:
-        print("Usage: python tools/web_search/main.py \"Your search query here\"", file=sys.stderr)
-        sys.exit(1)
+    if len(sys_argv) < 2:
+        print("Usage: python tools/web_search/main.py \"Your search query here\"", file=sys_stderr)
+        sys_exit(1)
 
     # Combine all arguments after the script name into a single query string
-    query = " ".join(sys.argv[1:])
+    query = " ".join(sys_argv[1:])
 
     try:
         # Print logs/status to stderr so they don't pollute the final output text
-        print("Executing web search tool for query by LLM...", file=sys.stderr)
+        print("Executing web search tool for query by LLM...", file=sys_stderr)
 
         result = search(query)
 
@@ -50,12 +67,12 @@ def main():
             # Print the clean final response to stdout for the agent
             print(result)
         else:
-            print("Error: Received an empty response from the model.", file=sys.stderr)
-            sys.exit(1)
+            print("Error: Received an empty response from the model.", file=sys_stderr)
+            sys_exit(1)
 
     except GroqError as ge:
-        print(f"An error occurred during execution: {ge}", file=sys.stderr)
-        sys.exit(1)
+        print(f"An error occurred during execution: {ge}", file=sys_stderr)
+        sys_exit(1)
 
 
 if __name__ == "__main__":
