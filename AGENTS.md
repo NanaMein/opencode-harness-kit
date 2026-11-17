@@ -16,3 +16,4 @@
 ## 3. Maker vs. Checker Workflow
 - Keep heavy codebase searches in read-only exploration (`@explore`) so the main reasoning context stays clean.
 - After non-trivial code changes, delegate a final diff audit to `@code-reviewer` before finishing.
+- Delegate standalone Python/TypeScript/JavaScript script creation and sandboxed test execution to `@sandbox-runner` so scripts are verified inside Docker without touching host `shell`.

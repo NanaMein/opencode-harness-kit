@@ -10,6 +10,7 @@ A portable, fail-closed **AI Harness Engineering** configuration kit for **OpenC
 ├── install.ts                       # Cross-platform Bun injector (Windows / macOS / Linux)
 ├── .opencode/
 │   ├── agents/
+│   │   ├── sandbox-runner.md        # Offline Docker execution subagent (.py, .ts, .js)
 │   │   ├── agent-architect.md       # Scoped primary meta-agent (edits only .opencode/ & docs/)
 │   │   └── code-reviewer.md         # Read-only checker subagent (edit: deny, shell: deny)
 │   ├── commands/
@@ -59,7 +60,8 @@ A portable, fail-closed **AI Harness Engineering** configuration kit for **OpenC
 
 * Transfers the exact same harness principles—bounded loops, human-in-the-loop approval gates, Pydantic output contracts, and externalized state—into Python agent development with **CrewAI**, **Microsoft Agent Framework**, **LangChain**, and **LlamaIndex**.
 
-
+5. **Decoupled Sandboxed Execution (`@sandbox-runner`):**
+   - Separates LLM reasoning from untrusted script execution by routing `.py`, `.ts`, and `.js` verification into ephemeral, network-disabled (`--network none`), read-only, non-root Docker containers enforced via OpenCode V2 `shell` permission patterns.
 
 
 
