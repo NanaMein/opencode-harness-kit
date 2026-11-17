@@ -1,5 +1,10 @@
 {
+  "name": "opencode-harness-kit",
+  "version": "0.1.0",
+  "bin": {
+    "opencode-harness-kit": "./install.ts"
+  },
   "dependencies": {
-    "@opencode-ai/plugin": "1.18.16"
+    "@opencode/plugin": "2.3.0"
   }
 }
