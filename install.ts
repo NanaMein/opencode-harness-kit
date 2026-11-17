@@ -2,7 +2,7 @@
 /**
  * Cross-platform OpenCode V2 Harness Kit Injector (Windows / macOS / Linux)
  * Usage:
- *   bun run https://raw.githubusercontent.com/NanaMein/OpenCode-Agent-Harness-Repo/main/install.ts
+ *   bun run https://raw.githubusercontent.com/NanaMein/opencode-harness-kit/main/install.ts
  *   bun run install.ts --target ../my-app --force
  */
 
@@ -11,7 +11,7 @@ import { cp, mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 
-const DEFAULT_REPO = "NanaMein/OpenCode-Agent-Harness-Repo";
+const DEFAULT_REPO = "NanaMein/opencode-harness-kit";
 const DEFAULT_BRANCH = "main";
 const HARNESS_MARKER = "## 2. Progressive Disclosure & Context Routing";
 
