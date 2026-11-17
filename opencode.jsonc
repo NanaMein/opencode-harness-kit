@@ -1,3 +1,24 @@
 {
   "$schema": "https://opencode.ai/config.json",
+  // Default to "build" for normal coding; press Tab to switch to "agent-architect"
+  "default_agent": "build",
+  // Disable public session sharing by default for repository security
+  "share": "disabled",
+
+  // OpenCode V2 ordered permission ruleset (last matching rule wins)
+  "permissions": [
+    // 1. Fail-safe baseline: require human approval for shell and web tools
+    { "action": "shell", "resource": "*", "effect": "ask" },
+    { "action": "webfetch", "resource": "*", "effect": "ask" },
+    { "action": "websearch", "resource": "*", "effect": "ask" },
+
+    // 2. Allow low-risk, read-only git inspection without friction
+    { "action": "shell", "resource": "git status*", "effect": "allow" },
+    { "action": "shell", "resource": "git diff*", "effect": "allow" },
+    { "action": "shell", "resource": "git log*", "effect": "allow" },
+
+    // 3. Protect environment secrets from silent reads or modifications
+    { "action": "read", "resource": "**/.env*", "effect": "ask" },
+    { "action": "edit", "resource": "**/.env*", "effect": "deny" }
+  ]
 }
