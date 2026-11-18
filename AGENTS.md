@@ -8,6 +8,7 @@
 
 ## 2. Progressive Disclosure & Context Routing
 - **Creating, Updating, or Removing Harness Files:** You MUST read `docs/guides/agent-creation-spec.md` BEFORE creating, modifying, or deleting any file in `.opencode/`, `AGENTS.md`, or `opencode.jsonc`.
+- **Harness-Agent Failure Routing:** For failures or unexpected behavior in an agent managed by `agent-architect`, switch to `agent-architect` for diagnosis. It may consult the read-only `@harness-technician`; keep ordinary application bugs in the normal coding workflow.
 - **Active Project Skills (`.opencode/skills/`):** Before writing or reviewing domain-specific code, inspect `.opencode/skills/` and load any `SKILL.md` relevant to the current task. Never assume a stack skill is permanent—skills can be added, updated, or removed as project needs evolve.
 - **Optional Skill Blueprints (`docs/templates/skills/`):** When tailoring a repository harness (e.g., Python agent frameworks like CrewAI, Microsoft Agent Framework, LangChain, LlamaIndex, or web backends), promote matching blueprints from `docs/templates/skills/` into `.opencode/skills/<name>/SKILL.md` only when requested or detected.
 - **Verification Loops:** Load the `verify-loop` skill (`.opencode/skills/verify-loop/SKILL.md`) before finishing non-trivial code edits.
