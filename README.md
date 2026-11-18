@@ -72,7 +72,7 @@ A portable, fail-closed **AI Harness Engineering** configuration kit for **OpenC
 Run this from the root of any target repository:
 
 ```bash
-bun run https://raw.githubusercontent.com/NanaMein/opencode-harness-kit/main/install.ts
+bunx github:NanaMein/opencode-harness-kit
 
 ```
 
