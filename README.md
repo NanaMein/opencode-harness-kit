@@ -11,8 +11,9 @@ A portable, fail-closed **AI Harness Engineering** configuration kit for **OpenC
 ├── .opencode/
 │   ├── agents/
 │   │   ├── sandbox-runner.md        # Offline Docker execution subagent (.py, .ts, .js)
-│   │   ├── agent-architect.md       # Scoped primary meta-agent (edits only .opencode/ & docs/)
-│   │   └── code-reviewer.md         # Read-only checker subagent (edit: deny, shell: deny)
+│   │   ├── agent-architect.md       # Edits .opencode/ & docs/; asks before AGENTS.md/opencode.jsonc
+│   │   ├── harness-technician.md    # Read-only, iterative diagnosis for agent failures
+│   │   └── code-reviewer.md         # Read-only diff reviewer with scoped git inspection
 │   ├── commands/
 │   │   ├── setup-harness.md         # /setup-harness -> starts discovery interview
 │   │   └── verify.md                # /verify -> runs tests, linters & diff audit
@@ -50,17 +51,28 @@ A portable, fail-closed **AI Harness Engineering** configuration kit for **OpenC
 3. **Maker vs. Checker Separation:**
 
 
-* Separates code generation (`build`) from independent auditing (`@code-reviewer` with `edit: deny` and `shell: deny`) so fresh context catches bugs and contract drift.
+* Separates code generation (`build`) from independent auditing (`@code-reviewer`, with edits denied and only scoped read-only git commands allowed) so fresh context catches bugs and contract drift.
 
 
 
 
-4. **Framework-Level Agent Discipline (`harness-discipline` skill):**
+4. **Iterative Agent-Failure Diagnosis (`@harness-technician`):**
+
+
+* When an agent managed by `agent-architect` fails or behaves unexpectedly, the architect can send the read-only technician a focused packet with the user's intent, expected versus actual behavior, relevant evidence, and prior corrections. The technician returns evidence-backed hypotheses and a proposed minimal fix; the architect remains responsible for decisions and edits.
+
+
+* Diagnosis is limited to three technician passes per incident. If the issue remains unresolved, the architect pauses for human review; another block requires the user's explicit approval and materially new context or evidence, preventing unattended, repetitive loops.
+
+
+
+
+5. **Framework-Level Agent Discipline (`harness-discipline` skill):**
 
 
 * Transfers the exact same harness principles—bounded loops, human-in-the-loop approval gates, Pydantic output contracts, and externalized state—into Python agent development with **CrewAI**, **Microsoft Agent Framework**, **LangChain**, and **LlamaIndex**.
 
-5. **Decoupled Sandboxed Execution (`@sandbox-runner`):**
+6. **Decoupled Sandboxed Execution (`@sandbox-runner`):**
    - Separates LLM reasoning from untrusted script execution by routing `.py`, `.ts`, and `.js` verification into ephemeral, network-disabled (`--network none`), read-only, non-root Docker containers enforced via OpenCode V2 `shell` permission patterns.
 
 
@@ -85,3 +97,4 @@ bunx github:NanaMein/opencode-harness-kit
 
 
 3. Answer its 4 discovery questions so it tailors `AGENTS.md`, subagents, and skills to your repository.
+4. If an architect-managed agent fails or behaves unexpectedly, return to `agent-architect` with the expected and actual behavior. It can consult `@harness-technician`; if unresolved after three diagnostic passes, it pauses for your review.
