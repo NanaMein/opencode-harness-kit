@@ -16,3 +16,25 @@ agents managed by `agent-architect`, then document the workflow and routing.
 - [x] Update `AGENTS.md` and `README.md` with the new escalation path and role.
 - [x] Verify permission boundaries, handoff/loop behavior, documentation
   consistency, and the final diff.
+
+## Agent Feedback and Workflow-Friction Requirements
+
+### Scope
+
+Add proactive, evidence-based workflow-friction handling to primary agents
+created by `agent-architect`, while preserving least-privilege boundaries and
+keeping persistent instruction changes under architect and user control.
+
+### Checklist
+
+- [x] Add an always-loaded friction/feedback contract to agent-architect's
+  primary-agent creation workflow.
+- [x] Add an on-demand `agent-feedback` skill for user-facing triage, evidence
+  categories, bounded thresholds, feedback interpretation, and scoped examples.
+- [x] Extend harness-technician's read-only diagnosis to distinguish agent,
+  permission/tool, provider/service, environment, verification, and intent
+  issues.
+- [x] Preserve permission boundaries; require explicit user direction to
+  agent-architect for permission changes or persistent example updates.
+- [x] Verify prompt consistency, threshold semantics, evidence handling, and
+  documentation without changing unrelated files.
